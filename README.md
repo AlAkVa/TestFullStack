@@ -1,2 +1,4 @@
 # TestFullStack
-test full stack
+Symfony 6
+node 18
+
