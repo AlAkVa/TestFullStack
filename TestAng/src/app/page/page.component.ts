@@ -2,8 +2,6 @@ import {Component} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {firstValueFrom} from "rxjs";
 import * as XLSX from 'xlsx';
-import axios, {AxiosResponse} from 'axios';
-
 
 @Component({
   selector: 'app-page',
@@ -51,7 +49,7 @@ export class PageComponent {
     const title = this.noteTitle;
     const text = this.noteContent;
     this.showNoteAction = false;
-    await firstValueFrom(this.http.post('http://test-ang.akimov/api/create-note', {
+    await firstValueFrom(this.http.post('http://127.0.0.1:8000/api/create-note', {
         text: text,
         title: title
       }, {
@@ -70,12 +68,11 @@ export class PageComponent {
   async searchNotes() {
     const request = this.noteRequest;
     const sortOrder = this.sortOrder;
-
     if (request === '') {
       this.showNoteAction = false;
       this.foundNotes = {};
     } else {
-      this.foundNotes = await firstValueFrom(this.http.post('http://test-ang.akimov/api/search-notes'
+      this.foundNotes = await firstValueFrom(this.http.post('http://127.0.0.1:8000/api/search-notes'
         , {
           searchText: request,
           order: sortOrder
@@ -92,7 +89,7 @@ export class PageComponent {
   }
 
   async editNote() {
-    await firstValueFrom(this.http.patch('http://test-ang.akimov/api/update-notes'
+    await firstValueFrom(this.http.patch('http://127.0.0.1:8000/api/update-notes'
       , {
         text: this.selectedNoteContent,
         title: this.selectedNoteTitle,
@@ -106,7 +103,7 @@ export class PageComponent {
   }
 
   async deleteNote(noteId: null) {
-    await firstValueFrom(this.http.delete('http://test-ang.akimov/api/delete-notes', {
+    await firstValueFrom(this.http.delete('http://127.0.0.1:8000/api/delete-notes', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
@@ -151,7 +148,7 @@ export class PageComponent {
       const file = event.target.files[0];
       const formData = new FormData();
       formData.append('file', file);
-      await firstValueFrom(this.http.post('http://test-ang.akimov/api/upload-notes'
+      await firstValueFrom(this.http.post('http://127.0.0.1:8000/api/upload-notes'
         , formData));
     }
   }

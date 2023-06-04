@@ -139,7 +139,7 @@ class NoteService
                 $note
                     ->setText($prepareNote[0])
                     ->setTitle($prepareNote[1])
-                    ->setUpdateDate(new \DateTime())
+                    ->setRegDate(new \DateTime())
                     ->setUpdateDate(new \DateTime());
 
                 $this->em->persist($note);
