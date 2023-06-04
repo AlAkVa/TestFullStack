@@ -1,0 +1,77 @@
+.container {
+  display: flex;
+}
+
+.left-column {
+  flex: 1;
+  padding: 20px;
+}
+
+.right-column {
+  flex: 2;
+  padding: 20px;
+}
+
+.create-button {
+  margin-bottom: 10px;
+}
+
+.search-input {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.sort-section {
+  margin-bottom: 10px;
+}
+
+.note-list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.note-list li {
+  margin-bottom: 5px;
+}
+.note-action-wrapper{
+  display: block;
+}
+
+.note-actions {
+  margin-bottom: 10px;
+}
+
+.edit-button,
+.delete-button {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.note-form {
+  margin-bottom: 10px;
+}
+
+.note-title,
+.note-content {
+  width: 100%;
+}
+
+.create-button.active {
+  background-color: #008000;
+}
+
+.notes-container {
+  height: 300px;
+  overflow-y: auto;
+}
+
+.found-note .delete-button {
+  display: none;
+}
+
+.found-note:hover .delete-button {
+  display: block;
+}
+
