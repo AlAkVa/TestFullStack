@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {firstValueFrom} from "rxjs";
 import * as XLSX from 'xlsx';
+import axios, {AxiosResponse} from 'axios';
+
 
 @Component({
   selector: 'app-page',
@@ -103,13 +105,13 @@ export class PageComponent {
     await this.searchNotes();
   }
 
-  async deleteNote(noteId : null) {
+  async deleteNote(noteId: null) {
     await firstValueFrom(this.http.delete('http://test-ang.akimov/api/delete-notes', {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       body: {
-        noteId: noteId  ?? this.noteId
+        noteId: noteId ?? this.noteId
       }
     }));
     this.showNoteAction = false;
@@ -117,7 +119,7 @@ export class PageComponent {
   }
 
   onSortOrderChange() {
-      this.foundNotes.reverse();
+    this.foundNotes.reverse();
   }
 
   async importNotes(foundNotes: any[]) {
@@ -129,9 +131,9 @@ export class PageComponent {
 
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Заметки');
 
-    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelBuffer = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
 
-    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const blob = new Blob([excelBuffer], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 
     const url = window.URL.createObjectURL(blob);
 
@@ -142,5 +144,15 @@ export class PageComponent {
 
     // Освобождение ресурсов URL
     window.URL.revokeObjectURL(url);
+  }
+
+  async exportNotes(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      await firstValueFrom(this.http.post('http://test-ang.akimov/api/upload-notes'
+        , formData));
+    }
   }
 }

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="left-column">
-    <button class="import-button" >Export.xlsx</button>
+    <input type="file" class="export-file" (change)="exportNotes($event)" placeholder="Загрузить заметки">
 
     <button class="create-button" [class.active]="showForm" (click)="showNoteForm()">Создать заметку</button>
     <input (keyup.enter)="searchNotes()" [(ngModel)]="noteRequest" class="search-input" type="text"
